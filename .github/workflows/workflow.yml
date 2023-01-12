@@ -1,17 +1,25 @@
-name: Nextjs CI
+name: NextJs Build
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:
-    name: Build NextJs Application
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Install NPM dependencies
-        run: npm install
-      - name: Build project assets
-        run: npm run build
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Use Node.js 18
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build application
+      run: npm run build
